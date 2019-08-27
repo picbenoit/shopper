@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Mckenziearts\Shopper\Models\Setting;
 use Mckenziearts\Shopper\Plugins\Catalogue\Models\Product;
+use Mckenziearts\Shopper\Plugins\Orders\Models\Cart;
+use Mckenziearts\Shopper\Plugins\Orders\Models\Order;
 use Mckenziearts\Shopper\Plugins\Users\Models\User;
 
 /**
@@ -70,6 +72,22 @@ class Coupon extends Model
     public function users()
     {
         return $this->morphedByMany(User::class, 'couponable', 'shopper_coupons_couponables');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function carts()
+    {
+        return $this->morphedByMany(Cart::class, 'couponable', 'shopper_coupons_couponables');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function orders()
+    {
+        return $this->morphedByMany(Order::class, 'couponable', 'shopper_coupons_couponables');
     }
 
     /**

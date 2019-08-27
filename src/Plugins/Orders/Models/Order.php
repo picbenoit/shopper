@@ -5,6 +5,7 @@ namespace Mckenziearts\Shopper\Plugins\Orders\Models;
 use Illuminate\Database\Eloquent\Model;
 use Mckenziearts\Shopper\Plugins\Catalogue\Models\Offer;
 use Mckenziearts\Shopper\Plugins\Orders\Helpers\PriceHelper;
+use Mckenziearts\Shopper\Plugins\Promo\Models\Coupon;
 use Mckenziearts\Shopper\Plugins\Users\Models\User;
 
 /**
@@ -113,6 +114,14 @@ class Order extends Model
     public function orderContent()
     {
         return $this->hasMany(OrderContent::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function coupons()
+    {
+        return $this->morphToMany(Coupon::class, 'couponable', 'shopper_coupons_couponables');
     }
 
     /**
